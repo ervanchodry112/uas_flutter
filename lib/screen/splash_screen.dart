@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:proyek_uas/api/get_token.dart';
 
 import 'package:proyek_uas/screen/home.dart';
 import 'package:proyek_uas/screen/login.dart';
@@ -10,17 +11,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late Widget page = LoginPage();
+
   @override
   void initState() {
     super.initState();
     // Menunggu selama 2 detik sebelum mengarah ke halaman selanjutnya
-    Future.delayed(Duration(seconds: 20), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
-        ),
-      );
-    });
+
   }
 
   @override
@@ -32,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
           image: AssetImage("assets/logo_unila.png"),
           width: 500,
         ),
-        nextScreen: LoginPage(),
+        nextScreen: page,
         splashTransition: SplashTransition.fadeTransition,
         // pageTransitionType: PageTransitionType.scale,
         backgroundColor: Colors.white,

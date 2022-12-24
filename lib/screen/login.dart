@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:proyek_uas/api/get_token.dart';
+import 'package:proyek_uas/screen/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +12,26 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String _username = "", _password = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLoggedIn();
+  }
+
+  void isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('token')) {
+      if (await GetToken.cekToken()) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +105,31 @@ class _LoginPageState extends State<LoginPage> {
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          GetToken.getToken(_username, _password);
+                          if (await GetToken.getToken(_username, _password)) {
+                            Fluttertoast.showToast(
+                              msg: 'Berhasil Login',
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.green,
+                              textColor: Colors.white,
+                            );
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+                          }else{
+                            Fluttertoast.showToast(
+                              msg: 'Username atau Password anda salah',
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                            );
+                          }
                           // Kirim data ke server atau lakukan proses login lainnya
                         }
                       },
