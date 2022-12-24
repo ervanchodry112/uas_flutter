@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                 builder: (context) => HomePage(),
                               ),
                             );
-                          }else{
+                          } else {
                             Fluttertoast.showToast(
                               msg: 'Username atau Password anda salah',
                               toastLength: Toast.LENGTH_LONG,
@@ -134,6 +134,12 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('Hint'),
+                    Text('Username : mhs-testing'),
+                    Text('Password: unilajaya')
                   ],
                 ),
               ),

@@ -13,10 +13,12 @@ class MahasiswaList extends StatefulWidget {
 class _MahasiswaListState extends State<MahasiswaList> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    if (widget.mhsList.isNotEmpty) {
+      return Padding(
         padding: EdgeInsets.only(
           right: 10,
           left: 10,
+          top: 15,
         ),
         child: ListView.separated(
           itemCount: widget.mhsList.length,
@@ -25,6 +27,11 @@ class _MahasiswaListState extends State<MahasiswaList> {
             return MahasiswaTile(mhs: widget.mhsList[index]);
           },
           separatorBuilder: ((context, index) => const Divider()),
-        ));
+        ),
+      );
+    }
+    return Center(
+      child: Text('Data tidak ditemukan'),
+    );
   }
 }

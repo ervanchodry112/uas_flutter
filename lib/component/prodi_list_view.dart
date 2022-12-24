@@ -14,9 +14,10 @@ class _ProdiListState extends State<ProdiList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           right: 10,
           left: 10,
+          top: 15,
         ),
         child: ListView.separated(
           itemCount: widget.listProdi.length,
@@ -25,7 +26,6 @@ class _ProdiListState extends State<ProdiList> {
             return ProdiItem(prodi: widget.listProdi[index]);
           },
           separatorBuilder: ((context, index) => const Divider()),
-          
         ));
   }
 }

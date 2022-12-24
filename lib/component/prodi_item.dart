@@ -45,7 +45,6 @@ class _ProdiItemState extends State<ProdiItem> {
               ),
             ));
           },
-          isThreeLine: true,
           selectedTileColor: Theme.of(context).primaryColor,
           hoverColor: Colors.blueAccent,
 
