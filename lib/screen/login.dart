@@ -22,15 +22,15 @@ class _LoginPageState extends State<LoginPage> {
 
   void isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('token')) {
-      if (await GetToken.cekToken()) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
-      }
+    // if (prefs.containsKey('token')) {
+    if (await GetToken.cekToken()) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
     }
+    // }
   }
 
   @override

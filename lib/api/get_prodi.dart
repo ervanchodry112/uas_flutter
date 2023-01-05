@@ -15,7 +15,8 @@ class GetProdi {
     final pref = await SharedPreferences.getInstance();
     if (await GetToken.cekToken()) {
       String? token = pref.getString('token');
-      Map<String, String> head = {'Authorization': 'bearer$token'};
+      Map<String, String> head = {'Authorization': '$token'};
+      print(token);
 
       final response = await http.get(
         URL,

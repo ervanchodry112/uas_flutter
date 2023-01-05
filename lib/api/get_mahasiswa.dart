@@ -22,7 +22,7 @@ class GetMahasiswa {
     final pref = await SharedPreferences.getInstance();
     if (await GetToken.cekToken()) {
       String? token = pref.getString('token');
-      Map<String, String> head = {'Authorization': 'bearer$token'};
+      Map<String, String> head = {'Authorization': '$token'};
 
       final response = await http.get(
         URL,

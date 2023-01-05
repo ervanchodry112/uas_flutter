@@ -31,7 +31,7 @@ class GetToken {
     if (response.statusCode == 200) {
       final Map<String, dynamic> json = jsonDecode(response.body.toString());
       if (json['status'] == true) {
-        sharedPref.setString("token", json['data']['token']);
+        sharedPref.setString("token", json['data']['token_bearer']);
         print(json);
         return true;
       }
@@ -42,20 +42,20 @@ class GetToken {
   static void logout() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("token");
-    
   }
 
   static Future<bool> cekToken() async {
     final sharedPref = await SharedPreferences.getInstance();
-    if (sharedPref.containsKey('token')) {
+    print(sharedPref.getString("token"));
+    if (sharedPref.containsKey("token")) {
       final token = sharedPref.getString("token");
       final response = await http.post(CEK, body: {
-        'token': token,
+        'token_bearer': token,
       });
       if (response.statusCode == 200) {
         final Map<String, dynamic> json = jsonDecode(response.body.toString());
-        // print(json);
-        if (json['message'] == "Token aktif") {
+        print(json);
+        if (json['status'] == true) {
           print(json['message']);
           return true;
         } else {
